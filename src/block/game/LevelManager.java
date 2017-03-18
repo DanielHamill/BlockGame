@@ -52,12 +52,12 @@ public class LevelManager {
 				new Movement(true, new Enemy("1", red1Sprite, 110, circle,57,119), true, new float[]{57,119,152,24,248,119,152,214})
 			},
 			{
-				new FollowMovement(new Enemy("2", red1Sprite, Player.DEFAULT_SPEED*.7f, circle), world, World.GOAL_X+world.getGoalBounds().width/2, World.GOAL_Y+world.getGoalBounds().height/2)
+				new FollowMovement(new Enemy("2", red1Sprite, Player.DEFAULT_SPEED*.6f, circle), world, World.GOAL_X+world.getGoalBounds().width/2, World.GOAL_Y+world.getGoalBounds().height/2, 10)
 			},
 			stage4Arr,
 			stage5Arr,
 			{
-				new FollowMovement(new Enemy("4", animation, frames, Player.DEFAULT_SPEED*1.165f, circle), world, World.GOAL_X+world.getGoalBounds().width/2, World.GOAL_Y+world.getGoalBounds().height/2)
+				new FollowMovement(new Enemy("4", animation, frames, Player.DEFAULT_SPEED*1.5f, circle), world, World.GOAL_X+world.getGoalBounds().width/2, World.GOAL_Y+world.getGoalBounds().height/2, 30)
 			},
 		};
 

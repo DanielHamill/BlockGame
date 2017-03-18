@@ -65,17 +65,20 @@ public class Movement {
 			float directionX = xDirection;
 			float directionY = (Math.abs(slope)/slope)/(Math.abs(directionX)/directionX);
 			
-			distance = (float) Math.sqrt((entity.xPos-xTarget)*(entity.xPos-xTarget) + (entity.yPos-yTarget)*(entity.yPos-yTarget));
-			
-			if(distance <=2 && !scripted) {
-				
-			}
-			else if(Math.abs(slope)>=1) {
-				entity.xPos+=Math.abs((speed*Gdx.graphics.getDeltaTime())/slope)*directionX;
-				entity.yPos+=speed*Gdx.graphics.getDeltaTime()*directionY;
+			if(Math.abs(slope)>=1) {
+				float x = Math.abs((speed*Gdx.graphics.getDeltaTime())/slope)*directionX;
+				float y = speed*Gdx.graphics.getDeltaTime()*directionY;
+				if(Float.isNaN(x)) x = 0;
+				if(Float.isNaN(y)) y = 0;
+				entity.xPos+=x;
+				entity.yPos+=y;
 			} else {
-				entity.xPos+=speed*Gdx.graphics.getDeltaTime()*directionX;
-				entity.yPos+=Math.abs(slope*speed*Gdx.graphics.getDeltaTime())*directionY;
+				float x = speed*Gdx.graphics.getDeltaTime()*directionX;
+				float y = Math.abs(slope*speed*Gdx.graphics.getDeltaTime())*directionY;
+				if(Float.isNaN(x)) x = 0;
+				if(Float.isNaN(y)) y = 0;
+				entity.xPos+=x;
+				entity.yPos+=y;
 			}
 			entity.tick(world, Gdx.graphics.getDeltaTime());
 		}
@@ -127,16 +130,11 @@ public class Movement {
 		
 		xDirection = xTarget>xCurrent ? 1:-1;
 		yDirection = yTarget>yCurrent ? 1:-1;
-		if(xCurrent==xTarget) {
-			slope = 1;
-		}
-		else {
-			slope = (yCurrent-yTarget)/(xCurrent-this.xTarget);
-		}
+		
+		slope = (yCurrent-yTarget)/(xCurrent-this.xTarget);
+		if(Float.isNaN(slope)) slope = 1;
 	}
 	
-	public void setPath(float[] points) {
-		this.points = points;
-	}
+	private void reduceTarget() {};
 
 }
