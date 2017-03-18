@@ -44,12 +44,14 @@ public class EntityManager {
 				if(e.entity.bounds instanceof Rectangle) {
 					if(Intersector.overlaps((Rectangle) e.entity.bounds, playerList.get(0).bounds)) {
 						playerList.get(0).spawnOut(null);
+						world.death();
 					}
 				}
 				else {
 					
 					if(Intersector.overlaps((Circle) e.entity.bounds, playerList.get(0).bounds) && !playerList.get(0).noHit) {
 						playerList.get(0).spawnOut(null);
+						world.death();
 					}
 				}
 				

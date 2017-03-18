@@ -19,6 +19,8 @@ public class Player extends Entity {
 	// Abilities
 	public static final float DEFAULT_SPEED = 100;
 	public static final float BLINK_SPEED = 450;
+	boolean verticalMove;
+	boolean horizontalMove;
 	
 	boolean local;
 	float speed;
@@ -33,8 +35,8 @@ public class Player extends Entity {
 	private Animation playerIn;
 	private float time;
 	
-	boolean animOut;
-	boolean animIn;
+	public boolean animOut;
+	public boolean animIn;
 	boolean still;
 	
 	boolean noHit;
@@ -44,6 +46,8 @@ public class Player extends Entity {
 	
 	public Player(Sprite player, Boolean local) {
 		super(player, DEFAULT_SPEED);
+		verticalMove = false;
+		horizontalMove = false;
 		this.local = local;
 		xPos = 288;
 		yPos = 208;
@@ -73,6 +77,10 @@ public class Player extends Entity {
 	@Override
 	public void tick(World world, float delta) {
 		if(local&&!still) {
+			
+			float x = xPos;
+			float y = yPos;
+			
 			if(Gdx.input.isKeyPressed(Input.Keys.W)||Gdx.input.isKeyPressed(Input.Keys.UP)) {
 				yPos -= speed*delta;
 			}
@@ -85,6 +93,9 @@ public class Player extends Entity {
 			if(Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 				xPos += speed*delta;
 			}
+			
+			horizontalMove = (x!=xPos) ? true : false;
+			verticalMove = (y!=yPos) ? true : false;
 		
 			bounds.setPosition(xPos+BOUND_X_OFFSET, yPos+BOUND_Y_OFFSET);
 			
@@ -122,6 +133,8 @@ public class Player extends Entity {
 	}
 	
 	void blink() {
+		int distance = 7;
+		
 		if(Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT) && cooldown >= 2) {
 			blinking = true;
 			cooldown = 0;
@@ -137,7 +150,11 @@ public class Player extends Entity {
 			speed = DEFAULT_SPEED;
 		}
 		
-		if(blinkFrames>4) {
+		if((horizontalMove && verticalMove) && blinkFrames>=(distance/1.414)) {
+			blinking=false;
+			blinkFrames = 0;
+		}
+		else if(blinkFrames>=distance) {
 			blinking=false;
 			blinkFrames = 0;
 		}

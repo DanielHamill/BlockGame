@@ -1,7 +1,9 @@
 package block.game.entities;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Shape2D;
@@ -17,6 +19,8 @@ public abstract class Entity {
 	public final int BOUND_HEIGHT_OFFSET = -4;
 	
 	public Sprite graphic;
+	public Animation animation;
+	public TextureRegion[] frames;
 	
 	public float speed;
 	public float xPos;
@@ -26,6 +30,11 @@ public abstract class Entity {
 	
 	public Entity(Sprite graphic, float speed) {
 		this.graphic = graphic;
+		this.speed = speed;
+	}
+	
+	public Entity(Animation animation, float speed) {
+		this.animation = animation;
 		this.speed = speed;
 	}
 	

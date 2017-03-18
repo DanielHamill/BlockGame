@@ -10,7 +10,7 @@ import block.game.entities.Entity;
 public class FollowMovement extends Movement{
 
 	public FollowMovement(Entity entity, World world, float xPos, float yPos) {
-		super(entity, true);
+		super(false, entity, true);
 		entity.setPosition(xPos, yPos);
 		speed = entity.speed;
 	}

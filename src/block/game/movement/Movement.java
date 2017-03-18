@@ -13,23 +13,25 @@ public class Movement {
 	public int targetNode;
 	public float[] points;
 	public float slope, xCurrent, yCurrent, xTarget, yTarget, speed, distance, displacement, xDirection, yDirection;
-	public boolean loop, userControlled;
-	public boolean finished;
+	public boolean loop, userControlled, finished, scripted;
 	
-	public Movement(Entity entity, World world) {
+	public Movement(Boolean scripted, Entity entity, World world) {
 		userControlled = false;
+		this.scripted = scripted;
 		this.entity = entity;
 		this.world = world;
 	}
 	
-	public Movement(Entity entity, boolean loop) {
+	public Movement(Boolean scripted, Entity entity, boolean loop) {
 		userControlled = false;
+		this.scripted = scripted;
 		this.entity = entity;
 		this.loop = loop;
 	}
 
-	public Movement(Entity entity, boolean loop, float[] points) {
+	public Movement(Boolean scripted, Entity entity, boolean loop, float[] points) {
 		userControlled = false;
+		this.scripted = scripted;
 		this.entity = entity;
 		this.points = points;
 		this.loop = loop;
@@ -62,7 +64,13 @@ public class Movement {
 			
 			float directionX = xDirection;
 			float directionY = (Math.abs(slope)/slope)/(Math.abs(directionX)/directionX);
-			if(Math.abs(slope)>=1) {
+			
+			distance = (float) Math.sqrt((entity.xPos-xTarget)*(entity.xPos-xTarget) + (entity.yPos-yTarget)*(entity.yPos-yTarget));
+			
+			if(distance <=2 && !scripted) {
+				
+			}
+			else if(Math.abs(slope)>=1) {
 				entity.xPos+=Math.abs((speed*Gdx.graphics.getDeltaTime())/slope)*directionX;
 				entity.yPos+=speed*Gdx.graphics.getDeltaTime()*directionY;
 			} else {

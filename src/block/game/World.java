@@ -37,6 +37,7 @@ public class World {
 	private EntityManager entityManager;
 	private LevelManager levelManager;
 	private CharSequence instructions;
+	private int deaths;
 	
 	private Texture worldSheet;
 	private Sprite spawn;
@@ -46,6 +47,7 @@ public class World {
 	
 	public int stage;
 	private boolean inGoal;
+	private boolean dead;
 
 	private NetOut network;
 	
@@ -74,6 +76,8 @@ public class World {
 		goalBounds = new Rectangle(GOAL_X-2, GOAL_Y-2, goal.getWidth()+2, goal.getHeight()+2);
 		
 		levelManager = new LevelManager(this);
+		deaths = 0;
+		dead = false;
 		
 		this.setStage(1);
 		
@@ -109,6 +113,7 @@ public class World {
 		if(network!=null) {
 			network.writeToStreams(this);
 		}
+		if(entityManager.getPlayer().animIn) dead = false;
 		
 		devModeStuff();
 		
@@ -122,6 +127,7 @@ public class World {
 		entityManager.draw(this, batch);
 		batch.draw(walls, 0, 0);
 		font.draw(batch, displayLevel, BlockGame.WIDTH/2-displayLevel.length()*7, 3);
+		font.draw(batch, "Deaths: " + Integer.toString(deaths).substring(0, Integer.toString(deaths).length()), 250, 227);
 	}
 	
 	public void stageUp() {
@@ -146,7 +152,10 @@ public class World {
 		else 
 			entityManager.enemyList = new ArrayList<Movement>(Arrays.asList(levelManager.getLevel(stage-2)));
 		
-		instructions = levelManager.getInstructions(stage-1);
+		if(stage-1>levelManager.instructions.length-1)
+			instructions = "";
+		else 
+			instructions = levelManager.getInstructions(stage-1);
 	}
 	
 	public Rectangle[] getWorldBounds() {
@@ -174,6 +183,14 @@ public class World {
 	}
 
 	public void dispose() {
+		
+	}
+	
+	public void death() {
+		if(!dead) {
+			dead = true;
+			deaths++;
+		}
 		
 	}
 	
@@ -207,8 +224,20 @@ public class World {
 			stageUp();
 		}
 		
+		if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1) && devMode) {
+			setStage(1);
+		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2) && devMode) {
 			setStage(2);
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3) && devMode) {
+			setStage(3);
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_4) && devMode) {
+			setStage(4);
+		}
+		if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_5) && devMode) {
+			setStage(5);
 		}
 		
 	}
