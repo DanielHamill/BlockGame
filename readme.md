@@ -17,14 +17,14 @@ player as they play each level, requiring them to learn the mechanics (like slow
 down or dashing) before they can advance to the main game.
 
 ### Gifs
-Basic Gameplay
+Basic Gameplay  
 ![Basic Gameplay](https://media.giphy.com/media/ekkMfhdQBmHzlXyQ7t/giphy.gif)
 
-Basic Enemy Tracking
+Basic Enemy Tracking  
 ![Enemy Tracking](https://media.giphy.com/media/JQSNoUp68MxoJuGxU7/giphy.gif)
 
-Tutorial by introducing game mechanics
+Tutorial by introducing game mechanics  
 ![Dash Mechanic](https://media.giphy.com/media/RlxImBoP28jfLpKqji/giphy.gif)
 
-Harder 'Boss' variants
+Harder 'Boss' variants  
 ![Boss enemy](https://media.giphy.com/media/WseI5sqlfwN6qwKVm6/giphy.gif)
